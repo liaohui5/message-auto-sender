@@ -1,5 +1,7 @@
 <template>
   <div class="home-page">
+    <h2 class="title">自动发送消息</h2>
+
     <!-- settings -->
     <el-form :disabled="formDisabled" ref="form" :model="settings" label-width="100px" label-position="left">
       <el-form-item label="当前语句">
@@ -27,7 +29,7 @@
         placement="top-start"
         title="注意事项"
         trigger="hover"
-        content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
+        content="需要安装java runtime环境, 也就是说: 需要安装jdk"
       >
         <el-button slot="reference" type="text" :disabled="formDisabled">注意事项</el-button>
       </el-popover>
@@ -44,7 +46,8 @@ export default {
     settings: {
       speed: 1000,
       prefix: '',
-      isReplace: false
+      isReplace: false,
+      msg: ''
     },
     replaceRules: [
       {
@@ -143,9 +146,12 @@ export default {
 }
 
 .home-page {
-  width: 600px;
-  min-height: 500px;
-  // background-color: #eee;
+  .title {
+    font-size: 30px;
+    text-align: center;
+    padding: 50px 0;
+  }
+  width: 500px;
   margin: 0 auto;
   padding: 10px;
   box-sizing: border-box;
