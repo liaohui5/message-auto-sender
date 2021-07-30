@@ -1,7 +1,7 @@
 'use strict';
 
 import { app, BrowserWindow, ipcMain } from 'electron';
-import execAutoInput from './execAutoInput.js';
+import MessageAutoSender from './MessageAutoSender.js';
 
 /**
  * Set `__static` path to static files in production
@@ -33,7 +33,7 @@ function createWindow() {
 
   mainWindow.loadURL(winURL);
 
-  ipcMain.on('exec_auto_input', execAutoInput);
+  ipcMain.on('start-message-auto-sender', MessageAutoSender);
 
   mainWindow.on('closed', () => {
     mainWindow = null;

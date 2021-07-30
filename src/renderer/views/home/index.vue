@@ -37,19 +37,16 @@
 
 <script>
 import { ipcRenderer } from 'electron';
-const datas = require('/static/db');
+const datas = require('/static/db.json');
+
 export default {
   data: () => ({
-    formDisabled: false,
     settings: {
-      isReplace: false,
-      msg: '',
       speed: 1000,
-      prefix: ''
+      prefix: '',
+      isReplace: false
     },
-    speedOptions: [1000, 2000, 3000, 4000, 5000],
     replaceRules: [
-      // TODO: 自定义替换规则
       {
         origin: '妈',
         target: 'ma'
@@ -74,7 +71,9 @@ export default {
         origin: '杂,种',
         target: '咋种'
       }
-    ]
+    ],
+    formDisabled: false,
+    speedOptions: [1000, 2000, 3000, 4000, 5000]
   }),
   created() {
     this.initStates();
@@ -106,12 +105,12 @@ export default {
     },
 
     // 处理到系统中的字符串中的敏感关键字
-    inputStringFilter(str) {
+    filterInputString(str) {
       if (!str.length) return '';
       let rule;
       for (let i = 0, l = this.replaceRules.length; i < l; i++) {
         rule = this.replaceRules[i];
-        str = str.replace(new RegExp(rule.origin, 'igm'), rule.target); // global replacement
+        str = str.replace(new RegExp(rule.origin, 'igm'), rule.target); // 使用正则全局替换
       }
       return this.settings.prefix + str;
     },
@@ -119,9 +118,11 @@ export default {
     // 执行
     exec() {
       let str = this.datas[this.dataIndex];
-      str = this.inputStringFilter(str);
+      if (this.settings.isReplace) {
+        str = this.filterInputString(str);
+      }
       this.settings.msg = str;
-      ipcRenderer.send('exec_auto_input', str);
+      ipcRenderer.send('start-message-auto-sender', str);
 
       this.dataIndex += 1;
       if (this.dataIndex >= this.dataLength) {

@@ -1,0 +1,26 @@
+[
+  {
+    "origin": "妈",
+    "target": "ma"
+  },
+  {
+    "origin": "爹",
+    "target": "跌"
+  },
+  {
+    "origin": "狗",
+    "target": "gou"
+  },
+  {
+    "origin": "婊",
+    "target": "錶"
+  },
+  {
+    "origin": "杂种",
+    "target": "咋种"
+  },
+  {
+    "origin": "杂,种",
+    "target": "咋种"
+  }
+]
